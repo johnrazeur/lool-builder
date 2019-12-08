@@ -1,0 +1,49 @@
+#!/bin/bash
+
+# Check env variables
+if [ -z "$DOCKER_HUB_REPO" ]; then
+  DOCKER_HUB_REPO="libreoffice/online"
+fi;
+if [ -z "$DOCKER_HUB_TAG" ]; then
+  DOCKER_HUB_TAG="master"
+fi;
+echo "Using Docker Hub Repository: '$DOCKER_HUB_REPO' with tag '$DOCKER_HUB_TAG'."
+
+# SRCDIR=$(realpath `dirname $0`)
+BUILDDIR="$DAPPER_SOURCE"/"$DAPPER_OUTPUT"
+LODDIR="$DAPPER_SOURCE/core"
+
+# mkdir -p "$BUILDDIR"/libreoffice
+# cd "$BUILDDIR"
+# cp -ar "$DAPPER_SOURCE"/core/core/include "$BUILDDIR"/libreoffice
+# mkdir -p "$INSTDIR"
+
+
+mkdir -p "$BUILDDIR"/opt/libreoffice
+cp -a "$LODDIR"/instdir "$BUILDDIR"/opt/libreoffice
+mkdir -p /opt/libreoffice
+cp -a "$LODDIR"/instdir /opt/libreoffice/instdir
+cp -a "$LODDIR"/core/include /opt/libreoffice/include
+cp -a "$DAPPER_SOURCE"/poco/build "$BUILDDIR"/opt/poco
+cp -a "$DAPPER_SOURCE"/poco/build /opt/poco
+# build
+( cd online/source && ./autogen.sh ) || exit 1
+( cd online/source && ./configure --prefix=/usr --sysconfdir=/etc --localstatedir=/var --enable-silent-rules --with-lokit-path=/opt/libreoffice/include --with-lo-path=/opt/libreoffice/instdir --with-poco-includes=/opt/poco/include --with-poco-libs=/opt/poco/lib $ONLINE_EXTRA_BUILD_OPTIONS) || exit 1
+( cd online/source/loleaflet/po && ../../scripts/downloadpootle.sh )
+( cd online/source/loleaflet && make l10n) || exit 1
+( cd online/source && scripts/locorestrings.py "$DAPPER_SOURCE"/online "$DAPPER_SOURCE"/core/core/translations )
+( cd online/source && scripts/unocommands.py --update "$DAPPER_SOURCE"/online "$DAPPER_SOURCE"/core/core )
+( cd online/source && scripts/unocommands.py --translate "$DAPPER_SOURCE"/online "$DAPPER_SOURCE"/core/core/translations )
+( cd online/source && make -j 8) || exit 1
+
+# copy stuff
+( cd online/source && DESTDIR="$BUILDDIR" make install ) || exit 1
+
+# Create new docker image
+# if [ -z "$NO_DOCKER_IMAGE" ]; then
+#   cd "$DAPPER_SOURCE"
+#   docker build --no-cache -t $DOCKER_HUB_REPO:$DOCKER_HUB_TAG . || exit 1
+#   docker push $DOCKER_HUB_REPO:$DOCKER_HUB_TAG || exit 1
+# else
+#   echo "Skipping docker image build"
+# fi;

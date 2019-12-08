@@ -1,0 +1,18 @@
+FROM ubuntu:18.04
+
+RUN apt-get update && apt-get install -y \
+	autoconf pkg-config git ccache \
+	libfontconfig1-dev gperf libx11-dev libxext-dev libice-dev libsm-dev libxrender-dev libxrandr-dev bison flex zip libgl1-mesa-dev curl gettext libglfw3-dev libxcb1-dev libc6
+
+# RUN git clone https://git.libreoffice.org/core libreoffice
+ENV DAPPER_SOURCE /source
+ENV DAPPER_OUTPUT core/instdir
+
+WORKDIR ${DAPPER_SOURCE}
+
+# VOLUME /libreoffice
+# VOLUME /instdir
+
+# WORKDIR /libreoffice
+
+ENTRYPOINT ["./scripts/entry"]

@@ -1,0 +1,5 @@
+cd core
+
+./autogen.sh --with-distro=LibreOfficeOnline
+
+make build-nocheck
