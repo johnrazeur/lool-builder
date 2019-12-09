@@ -10,7 +10,7 @@ fi;
 echo "Using Docker Hub Repository: '$DOCKER_HUB_REPO' with tag '$DOCKER_HUB_TAG'."
 
 # SRCDIR=$(realpath `dirname $0`)
-BUILDDIR="$DAPPER_SOURCE"/"$DAPPER_OUTPUT"
+BUILDDIR="$DAPPER_SOURCE/$DAPPER_OUTPUT"
 LODDIR="$DAPPER_SOURCE/core"
 
 # mkdir -p "$BUILDDIR"/libreoffice
@@ -19,16 +19,18 @@ LODDIR="$DAPPER_SOURCE/core"
 # mkdir -p "$INSTDIR"
 
 
-mkdir -p "$BUILDDIR"/opt/libreoffice
+mkdir -p "$BUILDDIR"/opt
 cp -a "$LODDIR"/instdir "$BUILDDIR"/opt/libreoffice
-mkdir -p /opt/libreoffice
-cp -a "$LODDIR"/instdir /opt/libreoffice/instdir
-cp -a "$LODDIR"/core/include /opt/libreoffice/include
+# mkdir -p /opt/libreoffice
+cp -a "$LODDIR"/instdir /opt/libreoffice
+# cp -a "$LODDIR"/core/include /opt/libreoffice/include
+
+# mkdir -p "$BUILDDIR"/opt/poco
 cp -a "$DAPPER_SOURCE"/poco/build "$BUILDDIR"/opt/poco
 cp -a "$DAPPER_SOURCE"/poco/build /opt/poco
 # build
 ( cd online/source && ./autogen.sh ) || exit 1
-( cd online/source && ./configure --prefix=/usr --sysconfdir=/etc --localstatedir=/var --enable-silent-rules --with-lokit-path=/opt/libreoffice/include --with-lo-path=/opt/libreoffice/instdir --with-poco-includes=/opt/poco/include --with-poco-libs=/opt/poco/lib $ONLINE_EXTRA_BUILD_OPTIONS) || exit 1
+( cd online/source && ./configure --prefix=/usr --sysconfdir=/etc --localstatedir=/var --enable-silent-rules --with-lokit-path="$LODDIR"/core/include --with-lo-path=/opt/libreoffice --with-poco-includes=/opt/poco/include --with-poco-libs=/opt/poco/lib $ONLINE_EXTRA_BUILD_OPTIONS) || exit 1
 ( cd online/source/loleaflet/po && ../../scripts/downloadpootle.sh )
 ( cd online/source/loleaflet && make l10n) || exit 1
 ( cd online/source && scripts/locorestrings.py "$DAPPER_SOURCE"/online "$DAPPER_SOURCE"/core/core/translations )
