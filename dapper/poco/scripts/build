@@ -1,3 +1,3 @@
 mkdir poco
-tar -xv -C poco -f poco-1.7.4-all.tar.gz
-cd poco/poco-1.7.4-all && ./configure --prefix=${DAPPER_SOURCE}/build && make install
+tar -xv -C poco -f poco-1.8.0-all.tar.gz
+cd poco/poco-1.8.0-all && ./configure --prefix=${DAPPER_SOURCE}/build && make install

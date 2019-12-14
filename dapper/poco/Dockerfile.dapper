@@ -5,7 +5,6 @@ RUN apt-get install -y nodejs-dev node-gyp libssl1.0-dev npm
 
 ENV DAPPER_SOURCE /source
 ENV DAPPER_OUTPUT build
-# ENV DAPPER_CP poco-1.7.4-all.tar.gz scripts
 
 WORKDIR ${DAPPER_SOURCE}
 
