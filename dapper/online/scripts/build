@@ -31,11 +31,9 @@ cp -a "$DAPPER_SOURCE"/poco/build /opt/poco
 # build
 ( cd online/source && ./autogen.sh ) || exit 1
 ( cd online/source && ./configure --prefix=/usr --sysconfdir=/etc --localstatedir=/var --enable-silent-rules --with-lokit-path="$LODDIR"/core/include --with-lo-path=/opt/libreoffice --with-poco-includes=/opt/poco/include --with-poco-libs=/opt/poco/lib $ONLINE_EXTRA_BUILD_OPTIONS) || exit 1
-( cd online/source/loleaflet/po && ../../scripts/downloadpootle.sh )
-( cd online/source/loleaflet && make l10n) || exit 1
-( cd online/source && scripts/locorestrings.py "$DAPPER_SOURCE"/online "$DAPPER_SOURCE"/core/core/translations )
-( cd online/source && scripts/unocommands.py --update "$DAPPER_SOURCE"/online "$DAPPER_SOURCE"/core/core )
-( cd online/source && scripts/unocommands.py --translate "$DAPPER_SOURCE"/online "$DAPPER_SOURCE"/core/core/translations )
+( cd online/source && scripts/locorestrings.py "$DAPPER_SOURCE"/online/source "$DAPPER_SOURCE"/core/core/translations )
+( cd online/source && scripts/unocommands.py --update "$DAPPER_SOURCE"/online/source "$DAPPER_SOURCE"/core/core )
+( cd online/source && scripts/unocommands.py --translate "$DAPPER_SOURCE"/online/source "$DAPPER_SOURCE"/core/core/translations )
 ( cd online/source && make -j 8) || exit 1
 
 # copy stuff
