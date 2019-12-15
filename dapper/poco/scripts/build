@@ -1,3 +1,5 @@
+#!/bin/bash
+
 mkdir poco
 tar -xv -C poco -f poco-1.8.0-all.tar.gz
 cd poco/poco-1.8.0-all && ./configure --prefix=${DAPPER_SOURCE}/build && make install

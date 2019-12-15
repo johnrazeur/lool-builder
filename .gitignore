@@ -1,6 +1,8 @@
-dapper/core/core/
-dapper/core/instdir/
-dapper/build/
+dapper/core/source/
+dapper/core/build/
+dapper/online/build/
 dapper/online/source/
 dapper/poco/build
 .dapper
+lo.tar
+lo.tar.br

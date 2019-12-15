@@ -1,0 +1,12 @@
+#!/bin/bash
+set -e
+
+if [ ! -n "$LIBREOFFICE_BRANCH" ]; then
+    echo "You must define the LIBREOFFICE_BRANCH env variable"
+    exit 1
+fi
+
+cd $(dirname $0)/..
+
+(cd dapper/core/source && git checkout -f $LIBREOFFICE_BRANCH)
+(cd dapper/online/source && git checkout -f $LIBREOFFICE_BRANCH)

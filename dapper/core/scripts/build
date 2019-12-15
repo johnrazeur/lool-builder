@@ -1,5 +1,9 @@
-cd core
+#!/bin/bash
 
+cd source
 ./autogen.sh --with-distro=LibreOfficeOnline
-
 make build-nocheck
+
+mkdir -p $DAPPER_OUTPUT
+cp -a instdir/ $DAPPER_OUTPUT
+cp -a include/ $DAPPER_OUTPUT

@@ -1,0 +1,9 @@
+#!/bin/bash
+set -e
+
+cd $(dirname $0)/..
+
+echo "Updating libreoffice core..."
+(cd dapper/core/source && git pull -r)
+echo "Updating libreoffice online..."
+(cd dapper/online/source && git pull -r)

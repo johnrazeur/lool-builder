@@ -18,7 +18,7 @@ RUN apt-get -y install locales-all libpng16-16 fontconfig adduser cpio findutils
 RUN apt-get -y install fonts-wqy-zenhei fonts-wqy-microhei fonts-droid-fallback fonts-noto-cjk
 
 # copy freshly built LibreOffice master and LibreOffice Online master with latest translations
-COPY build/ /
+COPY online/build/ /
 
 # copy the shell script which can start LibreOffice Online (loolwsd)
 COPY run-lool.sh /

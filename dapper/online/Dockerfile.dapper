@@ -11,7 +11,7 @@ RUN apt install -y nodejs
 RUN npm config set unsafe-perm true
 
 ENV DAPPER_SOURCE /source
-ENV DAPPER_OUTPUT build
+ENV DAPPER_OUTPUT online/build
 # ENV DAPPER_CP . ../../core
 
 WORKDIR ${DAPPER_SOURCE}

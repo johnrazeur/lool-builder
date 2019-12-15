@@ -1,0 +1,4 @@
+#!/bin/bash
+
+cd online/source
+make clean

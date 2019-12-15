@@ -6,7 +6,7 @@ RUN apt-get update && apt-get install -y \
 
 # RUN git clone https://git.libreoffice.org/core libreoffice
 ENV DAPPER_SOURCE /source
-ENV DAPPER_OUTPUT core/instdir
+ENV DAPPER_OUTPUT $DAPPER_SOURCE/build
 
 WORKDIR ${DAPPER_SOURCE}
 

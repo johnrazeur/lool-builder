@@ -1,0 +1,7 @@
+#!/bin/bash
+set -e
+
+cd $(dirname $0)/..
+
+git clone https://git.libreoffice.org/online dapper/online/source
+git clone https://git.libreoffice.org/core dapper/core/source
