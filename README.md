@@ -2,6 +2,10 @@
 
 A simple tool to build all you need to create a libreoffice online docker image !
 
+## Prerequisites
+
+You only need docker, git and make to use this tool !
+
 ## Installation
 
 ```
@@ -19,7 +23,7 @@ make get-source
 Optionally, you can change the version of libreoffice (default version is master)
 
 ```
-make change-version LIBREOFFICE_BRANCH="libreoffice6-4"
+make change-version LIBREOFFICE_BRANCH="libreoffice-6-4"
 ```
 
 And now you can run the build, this command will compile poco, libreoffice core and libreoffice online:
@@ -30,6 +34,11 @@ sudo make
 Create the docker image:
 ```
 sudo make release
+```
+
+You can also specify your image name and tag
+```
+sudo make release IMAGE_NAME=myimagename IMAGE_TAG=myimagetag
 ```
 
 ## Archive

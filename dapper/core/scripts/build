@@ -7,3 +7,4 @@ make build-nocheck
 mkdir -p $DAPPER_OUTPUT
 cp -a instdir/ $DAPPER_OUTPUT
 cp -a include/ $DAPPER_OUTPUT
+cp -a translations/ $DAPPER_OUTPUT
