@@ -4,6 +4,6 @@ set -e
 cd $(dirname $0)/..
 
 echo "Updating libreoffice core..."
-(cd dapper/core/source && git pull -r)
+(cd dapper/core/source && get clean -fd && git reset --hard &&  git pull -r)
 echo "Updating libreoffice online..."
-(cd dapper/online/source && git pull -r)
+(cd dapper/online/source && git clean -fd && git reset --hard && git pull -r)
