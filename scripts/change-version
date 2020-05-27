@@ -8,5 +8,5 @@ fi
 
 cd $(dirname $0)/..
 
-(cd dapper/core/source && git checkout -f $LIBREOFFICE_BRANCH)
-(cd dapper/online/source && git checkout -f $LIBREOFFICE_BRANCH)
+(cd dapper/core/source && git fetch --all && git checkout -f $LIBREOFFICE_BRANCH)
+(cd dapper/online/source && git fetch --all && git checkout -f $LIBREOFFICE_ONLINE_BRANCH)

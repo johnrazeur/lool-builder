@@ -23,7 +23,7 @@ make get-source
 Optionally, you can change the version of libreoffice (default version is master)
 
 ```
-make change-version LIBREOFFICE_BRANCH="libreoffice-6-4"
+make change-version LIBREOFFICE_BRANCH="libreoffice-6-4" LIBREOFFICE_ONLINE_BRANCH="cp-4.2.3-3"
 ```
 
 And now you can run the build, this command will compile poco, libreoffice core and libreoffice online:
